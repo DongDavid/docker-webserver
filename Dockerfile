@@ -44,7 +44,7 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
 COPY default /etc/nginx/sites-available/
 COPY docker-php-entrypoint /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-php-entrypoint
-
+VOLUME ["/data"]
 EXPOSE 80
 
 
