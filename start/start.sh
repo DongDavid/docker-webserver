@@ -18,9 +18,10 @@ docker run -d \
 --name web \
 #-p 9000:9000 \
 -p 80:80 \
--v $rootpath/data:/var/www/html:rw \
+-v $rootpath/data:/data:rw \
 #-v $rootpath/server/nginx:/etc/nginx/sites-available:rw \
 #--add-host $hostname:$host_ip \
 dongdavid/webserver:lasted
 
-#docker run -d --name web -p 80:80 -v $pwd:/var/www/html:rw dongdavid/webserver:lasted
+#docker run -d --name web -p 80:80 -v $pwd:/data:rw dongdavid/webserver:lasted
+#docker run -d -p 3307:3306 -e MYSQL_ROOT_PASSWORD=root --name mysql57 mysql:5.7

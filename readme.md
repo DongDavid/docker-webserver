@@ -6,7 +6,7 @@
 
 ## 构建镜像
 ```sh
-docker build -t dongdavid/webserver:7.4 .
+docker build -t dongdavid/webserver:7.4.1 .
 ```
 
 ## 使用镜像
@@ -22,3 +22,99 @@ docker stop web && docker rm web
 
 > 7.4的配置和7.3不一样了， --with-freetype-dir 变成 --with-freetype
 > zip扩展需要先安装libzip-dev
+
+## 版本说明  
+
+
+
+### v1.0.0
+
+nginx配置默认增加了laravel和thinkphp的URL重写配置  
+
+```
+server {
+    listen       80;
+    server_name  _;
+    .
+    .
+    .
+    location / {
+
+    }
+}
+
+
+server {
+    listen       80;
+    server_name  la.test;
+    .
+    .
+    .
+    location / {
+		try_files $uri $uri/ /index.php?$query_string;
+    }
+}
+server {
+    listen       80;
+    server_name  tp.test;
+    .
+    .
+    .
+    location / {
+        if (!-e $request_filename) {
+            rewrite  ^(.*)$  /index.php?s=/$1  last;
+        }
+    }
+}
+
+```
+增加了imagick-3.4.4扩展
+```
+[PHP Modules]
+bcmath
+Core
+ctype
+curl
+date
+dom
+fileinfo
+filter
+ftp
+gd
+hash
+iconv
+imagick
+json
+libxml
+mbstring
+mysqli
+mysqlnd
+openssl
+pcntl
+pcre
+PDO
+pdo_mysql
+pdo_sqlite
+Phar
+posix
+readline
+redis
+Reflection
+session
+SimpleXML
+soap
+sodium
+SPL
+sqlite3
+standard
+tokenizer
+xdebug
+xml
+xmlreader
+xmlwriter
+zip
+zlib
+
+[Zend Modules]
+Xdebug
+```
