@@ -6,18 +6,18 @@
 
 ## 构建镜像
 ```sh
-docker build -t dongdavid/webserver:7.4.1 .
+docker build -t dongdavid/webserver:latest .
 ```
 
 ## 使用镜像
 ```sh
 # 启动
-docker run -d --name web -p 80:80 -v $(pwd):/var/www/html dongdavid/webserver:7.4 && docker exec -it web /bin/bash
+docker run -d --name web -p 80:80 -v $(pwd):/data dongdavid/webserver:7.4 && docker exec -it web /bin/bash
 # 销毁
 docker stop web && docker rm web
 ```  
 
-默认站点根目录为`/var/www/html/public`  
+默认站点根目录为`/data/public`  
 
 
 > 7.4的配置和7.3不一样了， --with-freetype-dir 变成 --with-freetype
@@ -68,7 +68,10 @@ server {
 }
 
 ```
-增加了imagick-3.4.4扩展
+
+* 增加了imagick-3.4.4扩展
+* 增加了soap扩展
+
 ```
 [PHP Modules]
 bcmath
