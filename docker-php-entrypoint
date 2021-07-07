@@ -8,5 +8,5 @@ fi
 
 service nginx start
 service redis-server start
-
+service supervisor start
 exec "$@"

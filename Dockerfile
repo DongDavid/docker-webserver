@@ -28,6 +28,7 @@ RUN apt-get install -y \
     gnupg2 \
     nginx \
     redis-server \
+    supervisor \
     && docker-php-source extract \
     && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
