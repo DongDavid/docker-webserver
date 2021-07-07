@@ -51,7 +51,8 @@ RUN apt-get install -y \
     && mv composer.phar /usr/local/sbin/composer \
     && chmod +x /usr/local/sbin/composer
 COPY default /etc/nginx/sites-available/
-RUN echo '127.0.0.1 tp.test' >> /etc/hosts \
+RUN chmod 666 /etc/hosts \
+    && echo '127.0.0.1 tp.test' >> /etc/hosts \
     && echo '127.0.0.1 la.test' >> /etc/hosts
 COPY docker-php-entrypoint /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-php-entrypoint
