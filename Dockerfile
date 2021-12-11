@@ -1,20 +1,11 @@
-FROM php:7.4-fpm
+FROM php:7.3-fpm
 
 MAINTAINER dongdavid
 
 ADD redis-5.3.1.tgz /tmp
 ADD xdebug-2.9.6.tgz /tmp
 ADD imagick-3.4.4.tgz /tmp
-RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
-    && echo 'deb http://mirrors.aliyun.com/debian/ buster main non-free contrib' >> /etc/apt/sources.list \
-    && echo 'deb http://mirrors.aliyun.com/debian-security buster/updates main' >> /etc/apt/sources.list \
-    && echo 'deb http://mirrors.aliyun.com/debian/ buster-updates main non-free' contrib >> /etc/apt/sources.list \
-    && echo 'deb http://mirrors.aliyun.com/debian/ buster-backports main non-free' contrib >> /etc/apt/sources.list \
-    && echo 'deb-src http://mirrors.aliyun.com/debian-security buster/updates main' >> /etc/apt/sources.list \
-    && echo 'deb-src http://mirrors.aliyun.com/debian/ buster main non-free contrib' >> /etc/apt/sources.list \
-    && echo 'deb-src http://mirrors.aliyun.com/debian/ buster-updates main non-free contrib' >> /etc/apt/sources.list \
-    && echo 'deb-src http://mirrors.aliyun.com/debian/ buster-backports main non-free contrib' >> /etc/apt/sources.list \
-    && apt-get update \
+RUN apt-get update \
     && apt install ca-certificates
 RUN apt-get install -y \
     libfreetype6-dev \
@@ -31,7 +22,7 @@ RUN apt-get install -y \
     redis-server \
     supervisor \
     && docker-php-source extract \
-    && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install -j$(nproc) pcntl \
     && docker-php-ext-install -j$(nproc) bcmath \
@@ -52,6 +43,7 @@ RUN apt-get install -y \
     && mv composer.phar /usr/local/sbin/composer \
     && chmod +x /usr/local/sbin/composer
 COPY default /etc/nginx/sites-available/
+COPY zz-docker.conf /usr/local/etc/php-fpm.d/
 COPY docker-php-entrypoint /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-php-entrypoint
 VOLUME ["/data"]
