@@ -12,7 +12,7 @@ docker build -t dongdavid/webserver:latest .
 ## 使用镜像
 ```sh
 # 启动
-docker run -d --name web -p 80:80 -v $(pwd):/data dongdavid/webserver:7.4 && docker exec -it web /bin/bash
+docker run -d --name web -p 80:80 -v $(pwd):/data dongdavid/webserver:latest && docker exec -it web /bin/bash
 # 销毁
 docker stop web && docker rm web
 ```  

@@ -25,6 +25,7 @@ RUN apt-get install -y \
     libxml2-dev \
     libmagickcore-dev \
     libmagickwand-dev \
+    unzip \
     gnupg2 \
     nginx \
     redis-server \
