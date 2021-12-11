@@ -29,6 +29,7 @@ RUN apt-get install -y \
     gnupg2 \
     nginx \
     redis-server \
+    supervisor \
     && docker-php-source extract \
     && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
@@ -51,8 +52,6 @@ RUN apt-get install -y \
     && mv composer.phar /usr/local/sbin/composer \
     && chmod +x /usr/local/sbin/composer
 COPY default /etc/nginx/sites-available/
-RUN echo '127.0.0.1 tp.test' >> /etc/hosts \
-    && echo '127.0.0.1 la.test' >> /etc/hosts
 COPY docker-php-entrypoint /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-php-entrypoint
 VOLUME ["/data"]
